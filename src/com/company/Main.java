@@ -1,5 +1,11 @@
 package com.company;
 
+import com.company.memento.Editor;
+import com.company.memento.History;
+import com.company.state.Canvas;
+import com.company.state.SelectionTool;
+import com.company.state.abuse.Stopwatch;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -26,10 +32,32 @@ public class Main {
         drawUIControl(new CheckBox());
 
         Editor editor = new Editor();
+        History history = new History();
+
         editor.setContent("a");
+        history.push(editor.createState());
+
         editor.setContent("b");
+        history.push(editor.createState());
+
         editor.setContent("c");
-        editor.undo();
+        editor.restore(history.pop());
+
+        System.out.println(editor.getContent());
+        editor.restore(history.pop());
+        System.out.println(editor.getContent());
+
+        Canvas canvas = new Canvas();
+        canvas.setCurrentTool(new SelectionTool());
+        canvas.mouseDown();
+        canvas.mouseUp();
+
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.click();
+        stopwatch.click();
+        stopwatch.click();
+        stopwatch.click();
+        stopwatch.click();
     }
 
     public static  TaxCalculator getCalculator() {
