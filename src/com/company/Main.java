@@ -24,6 +24,12 @@ public class Main {
         textBox.enable();
 
         drawUIControl(new CheckBox());
+
+        Editor editor = new Editor();
+        editor.setContent("a");
+        editor.setContent("b");
+        editor.setContent("c");
+        editor.undo();
     }
 
     public static  TaxCalculator getCalculator() {
